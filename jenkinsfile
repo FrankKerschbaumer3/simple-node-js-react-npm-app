@@ -35,6 +35,7 @@ pipeline{
         success {
            sh 'docker ps -a'
            sh 'docker images'
+	   sh 'df -ih'
         }
         failure {
             sh 'docker system prune -a -f'
