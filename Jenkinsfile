@@ -37,9 +37,9 @@ pipeline{
            sh 'docker images'
 	   sh 'df -ih'
         }
-        failure {
-            sh 'docker system prune -a -f'
-        }
+        //failure {
+        //    sh 'docker system prune -a -f'
+        // }
         //cleanup {
         //    sh 'docker system prune -a -f'
         //}
