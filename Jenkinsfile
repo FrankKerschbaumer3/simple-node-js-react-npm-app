@@ -26,7 +26,7 @@ pipeline{
             steps {
                 echo("Building dock docker image and pushing to registry.");
                 script {
-                    sh 'docker build .'
+                    sh 'docker build -t dev .'
                 }
             }
         }
@@ -35,6 +35,7 @@ pipeline{
         success {
            sh 'docker ps -a'
            sh 'docker images'
+	   sh 'df -ih'
         }
         failure {
             sh 'docker system prune -a -f'
