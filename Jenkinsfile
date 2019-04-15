@@ -26,7 +26,7 @@ pipeline{
             steps {
                 echo("Building dock docker image and pushing to registry.");
                 script {
-                    sh 'docker build -t dev .'
+                    sh 'docker build -t master .'
                     sh 'df -ih'
                 }
             }
