@@ -12,7 +12,7 @@ pipeline{
     //}
     stages{
         stage('Build PR') {
-            when { changeRequest target: 'dev' }
+            when { branch 'testbranch' }
             steps {
                 script {
                     echo("Building from PR")
@@ -30,7 +30,17 @@ pipeline{
                     sh 'df -ih'
                 }
             }
-        } 
+        }
+        stage('Build-Docker') {
+            when { branch 'dev' }
+            steps {
+                echo("Building dock docker image and pushing to registry.");
+                script {
+                    sh 'docker build -t dev .'
+                    sh 'df -ih'
+                }
+            }
+        }
     }
     post{
         success {
