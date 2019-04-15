@@ -27,7 +27,7 @@ pipeline{
                 echo("Building dock docker image and pushing to registry.");
                 script {
                     sh 'docker build -t master .'
-                    sh 'df -ih'
+                    sh 'df -h'
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline{
                 echo("Building dock docker image and pushing to registry.");
                 script {
                     sh 'docker build -t dev .'
-                    sh 'df -ih'
+                    sh 'df -h'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline{
         success {
            sh 'docker ps -a'
            sh 'docker images'
-           sh 'df -hi'
+           sh 'df -h'
            sh 'whoami'
            sh 'pwd'
         }
