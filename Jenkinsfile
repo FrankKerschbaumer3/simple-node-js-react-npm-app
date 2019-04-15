@@ -2,17 +2,17 @@ pipeline{
     agent{
         label "NodeAMI"
     }
-    tools{
-        nodejs "NodeJs" 
-    }
+    //tools{
+    //    nodejs "NodeJs" 
+    //}
     //options {
     //  disableConcurrentBuilds()
     //  buildDiscarder(logRotator(numToKeepStr: '3'))
     //  retry(3)
     //}
     stages{
-        stage('Build PR') {
-            when { changeRequest() }
+        stage('Build Test-branch') {
+            when { branch 'testbranch' }
             steps {
                 script {
                     echo("Building from PR")
@@ -21,12 +21,23 @@ pipeline{
                 }
             }
         }
-        stage('Build-Docker') {
+        stage('Build-master') {
             when { branch 'master' }
             steps {
                 echo("Building dock docker image and pushing to registry.");
                 script {
+                    sh 'docker build -t master .'
+                    sh 'df -ih'
+                }
+            }
+        }
+        stage('Build-dev') {
+            when { branch 'dev' }
+            steps {
+                echo("Building dock docker image and pushing to registry.");
+                script {
                     sh 'docker build -t dev .'
+                    sh 'df -ih'
                 }
             }
         }
@@ -35,13 +46,15 @@ pipeline{
         success {
            sh 'docker ps -a'
            sh 'docker images'
-	   sh 'df -ih'
+           sh 'df -hi'
+           sh 'whoami'
+           sh 'pwd'
         }
         //failure {
         //    sh 'docker system prune -a -f'
         // }
-        //cleanup {
-        //    sh 'docker system prune -a -f'
-        //}
+        cleanup {
+            sh 'docker system prune -a -f'
+        }
     }
 } 
