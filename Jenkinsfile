@@ -36,7 +36,7 @@ pipeline{
         success {
            sh 'docker ps -a'
            sh 'docker images'
-	       sh 'df -ih'
+           sh 'df -hi'
            sh 'whoami'
            sh 'pwd'
         }
