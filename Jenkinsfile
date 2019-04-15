@@ -4,7 +4,7 @@ pipeline{
     }
     //tools{
     //    nodejs "NodeJs" 
-    }
+    //}
     //options {
     //  disableConcurrentBuilds()
     //  buildDiscarder(logRotator(numToKeepStr: '3'))
