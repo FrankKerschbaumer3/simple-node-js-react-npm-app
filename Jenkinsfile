@@ -11,7 +11,7 @@ pipeline{
     //  retry(3)
     //}
     stages{
-        stage('Build PR') {
+        stage('Build Test-branch') {
             when { branch 'testbranch' }
             steps {
                 script {
@@ -21,7 +21,7 @@ pipeline{
                 }
             }
         }
-        stage('Build-Docker') {
+        stage('Build-master') {
             when { branch 'master' }
             steps {
                 echo("Building dock docker image and pushing to registry.");
@@ -31,7 +31,7 @@ pipeline{
                 }
             }
         }
-        stage('Build-Docker') {
+        stage('Build-dev') {
             when { branch 'dev' }
             steps {
                 echo("Building dock docker image and pushing to registry.");
