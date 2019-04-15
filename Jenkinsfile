@@ -2,8 +2,8 @@ pipeline{
     agent{
         label "NodeAMI"
     }
-    tools{
-        nodejs "NodeJs" 
+    //tools{
+    //    nodejs "NodeJs" 
     }
     //options {
     //  disableConcurrentBuilds()
@@ -12,7 +12,7 @@ pipeline{
     //}
     stages{
         stage('Build PR') {
-            when { changeRequest() }
+            when { changeRequest target: 'dev' }
             steps {
                 script {
                     echo("Building from PR")
@@ -27,21 +27,24 @@ pipeline{
                 echo("Building dock docker image and pushing to registry.");
                 script {
                     sh 'docker build -t dev .'
+                    sh 'df -ih'
                 }
             }
-        }
+        } 
     }
     post{
         success {
            sh 'docker ps -a'
            sh 'docker images'
-	   sh 'df -ih'
+	       sh 'df -ih'
+           sh 'whoami'
+           sh 'pwd'
         }
         //failure {
         //    sh 'docker system prune -a -f'
         // }
-        //cleanup {
-        //    sh 'docker system prune -a -f'
-        //}
+        cleanup {
+            sh 'docker system prune -a -f'
+        }
     }
 } 
