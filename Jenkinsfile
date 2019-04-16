@@ -16,8 +16,7 @@ pipeline{
             steps {
                 script {
                     echo("Building from PR")
-                    sh 'npm i'
-                    sh 'npm i -g lerna'
+                    sh 'sh ./jenkins/scripts/test.sh'
                 }
             }
         }
